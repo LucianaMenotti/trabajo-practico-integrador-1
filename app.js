@@ -1,7 +1,8 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import 'dotenv/config';
+import "dotenv/config";
+import sequelize from "./src/config/database.js";
 
 const app = express(); //crea la instancia de mi servidor
 
@@ -11,7 +12,13 @@ app.use(express.json());
 
 const PORT = process.env.PORT;
 
-app.listen(PORT , ()=>{
-    console.log(`El servidor esta corriendo en el puerto ${PORT}`);
-});
+try {
+  await sequelize.authenticate();
+  console.log("Conexión a la base de datos exitosa.");
 
+  app.listen(PORT, () => {
+    console.log(`Servidor corriendo en el puerto ${PORT}`);
+  });
+} catch (error) {
+  console.error("Error al conectar a la base de datos:", error);
+}
