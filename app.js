@@ -6,6 +6,8 @@ import sequelize from "./src/config/database.js";
 import "./src/models/asociacion.js";
 import authRoutes from "./src/routes/auth.routes.js";
 import userRoutes from "./src/routes/users.routes.js";
+import tagRoutes from "./src/routes/tags.routes.js";
+import articleRoutes from "./src/routes/article.routes.js";
 
 const app = express(); //crea la instancia de mi servidor
 
@@ -14,6 +16,8 @@ app.use(cookieParser());
 app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/tags", tagRoutes);
+app.use("/api/articles", articleRoutes);
 
 const PORT = process.env.PORT;
 
