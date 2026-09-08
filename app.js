@@ -8,6 +8,7 @@ import authRoutes from "./src/routes/auth.routes.js";
 import userRoutes from "./src/routes/users.routes.js";
 import tagRoutes from "./src/routes/tags.routes.js";
 import articleRoutes from "./src/routes/article.routes.js";
+import articleTagRoutes from "./src/routes/articletags.routes.js"
 
 const app = express(); //crea la instancia de mi servidor
 
@@ -18,6 +19,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/tags", tagRoutes);
 app.use("/api/articles", articleRoutes);
+app.use("/api/articles-tags", articleTagRoutes);
 
 const PORT = process.env.PORT;
 
