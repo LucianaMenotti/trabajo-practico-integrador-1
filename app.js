@@ -5,6 +5,7 @@ import "dotenv/config";
 import sequelize from "./src/config/database.js";
 import "./src/models/asociacion.js";
 import authRoutes from "./src/routes/auth.routes.js";
+import userRoutes from "./src/routes/users.routes.js";
 
 const app = express(); //crea la instancia de mi servidor
 
@@ -12,6 +13,7 @@ app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 app.use("/api/auth", authRoutes);
+app.use("/api/users", userRoutes);
 
 const PORT = process.env.PORT;
 
