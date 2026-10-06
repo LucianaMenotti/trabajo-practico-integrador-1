@@ -3,7 +3,7 @@ import { body, param } from "express-validator";
 import {
   createArticleTag,
   deleteArticleTag,
-} from "../controllers/articletag.controller.js";
+} from "../controllers/articletags.controller.js";
 import { authMiddleware } from "../middlewares/auth.middleware.js";
 
 const router = Router();

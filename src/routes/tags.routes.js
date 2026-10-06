@@ -6,7 +6,7 @@ import {
   createTag,
   updateTag,
   deleteTag,
-} from "../controllers/tag.controller.js";
+} from "../controllers/tags.controller.js";
 import { authMiddleware } from "../middlewares/auth.middleware.js";
 import { adminMiddleware } from "../middlewares/admin.middleware.js";
 
