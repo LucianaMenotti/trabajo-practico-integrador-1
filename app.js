@@ -8,11 +8,16 @@ import authRoutes from "./src/routes/auth.routes.js";
 import userRoutes from "./src/routes/users.routes.js";
 import tagRoutes from "./src/routes/tags.routes.js";
 import articleRoutes from "./src/routes/article.routes.js";
-import articleTagRoutes from "./src/routes/articletags.routes.js"
+import articleTagRoutes from "./src/routes/articletags.routes.js";
 
-const app = express(); //crea la instancia de mi servidor
+const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  }),
+);
 app.use(cookieParser());
 app.use(express.json());
 app.use("/api/auth", authRoutes);
