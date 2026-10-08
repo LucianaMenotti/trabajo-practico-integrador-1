@@ -8,7 +8,7 @@ import { authorOnlyMiddleware } from "../middlewares/owner.middleware.js";
 import {
   createArticleTagValidations,
   deleteArticleTagValidations,
-} from "../middlewares/articleTag.validations.js";
+} from "../middlewares/validations/articleTag.validations.js";
 
 const router = Router();
 

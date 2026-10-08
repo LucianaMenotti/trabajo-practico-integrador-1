@@ -1,5 +1,5 @@
 import { body, param } from "express-validator";
-import { userModels } from "../models/user.models.js";
+import { userModels } from "../../models/user.models.js";
 import { registerValidations } from "./auth.validations.js";
 
 export const userIdValidation = [

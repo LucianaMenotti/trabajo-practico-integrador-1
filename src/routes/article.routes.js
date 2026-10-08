@@ -14,7 +14,7 @@ import {
   articleIdValidation,
   createArticleValidations,
   updateArticleValidations,
-} from "../middlewares/article.validations.js";
+} from "../middlewares/validations/article.validations.js";
 
 const router = Router();
 

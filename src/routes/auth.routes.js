@@ -10,8 +10,8 @@ import { authMiddleware } from "../middlewares/auth.middleware.js";
 import {
   registerValidations,
   loginValidations,
-} from "../middlewares/auth.validations.js";
-import { updateProfileValidations } from "../middlewares/profile.validations.js";
+} from "../middlewares/validations/auth.validations.js";
+import { updateProfileValidations } from "../middlewares/validations/profile.validations.js";
 
 const router = Router();
 

@@ -1,5 +1,5 @@
 import { body, param } from "express-validator";
-import { tagModels } from "../models/tag.models.js";
+import { tagModels } from "../../models/tag.models.js";
 
 export const tagIdValidation = [
   param("id").isInt({ min: 1 }).withMessage("id debe ser un entero positivo"),

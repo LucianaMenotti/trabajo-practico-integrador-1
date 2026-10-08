@@ -12,7 +12,7 @@ import {
   tagIdValidation,
   createTagValidations,
   updateTagValidations,
-} from "../middlewares/tag.validations.js";
+} from "../middlewares/validations/tag.validations.js";
 
 const router = Router();
 
