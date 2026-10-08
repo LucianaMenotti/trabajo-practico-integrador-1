@@ -1,5 +1,7 @@
 import { Sequelize } from "sequelize";
-import "dotenv/config";
+import dotenv from "dotenv";
+
+dotenv.config({ quiet: true });
 
 const sequelize = new Sequelize(
   process.env.DB_NAME,
@@ -8,7 +10,9 @@ const sequelize = new Sequelize(
   {
     host: process.env.DB_HOST,
     dialect: "mysql",
-    port: process.env.DB_PORT,
+    define: {
+      underscored: true,
+    },
   },
 );
 

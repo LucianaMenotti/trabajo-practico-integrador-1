@@ -31,9 +31,8 @@ export async function register(req, res) {
       .status(201)
       .json({ message: "Usuario registrado correctamente" });
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: "Error al registrar usuario", error: error.message });
+    console.error("Error al registrar usuario:", error);
+    return res.status(500).json({ message: "Error interno del servidor" });
   }
 }
 
@@ -48,26 +47,25 @@ export async function login(req, res) {
 
     const user = await userModels.findOne({ where: { email } });
     if (!user) {
-      return res.status(400).json({ message: "Credenciales inválidas" });
+      return res.status(401).json({ message: "Credenciales inválidas" });
     }
 
     const isMatch = await comparePassword(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ message: "Credenciales inválidas" });
+      return res.status(401).json({ message: "Credenciales inválidas" });
     }
 
     const token = generateToken({ id: user.id, role: user.role });
 
     res.cookie("token", token, {
       httpOnly: true,
-      maxAge: 24 * 60 * 60 * 1000,
+      maxAge: 86400000,
     });
 
     return res.status(200).json({ message: "Login exitoso" });
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: "Error al iniciar sesión", error: error.message });
+    console.error("Error al iniciar sesión:", error);
+    return res.status(500).json({ message: "Error interno del servidor" });
   }
 }
 
@@ -76,9 +74,8 @@ export async function logout(req, res) {
     res.clearCookie("token");
     return res.status(200).json({ message: "Sesión cerrada correctamente" });
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: "Error al cerrar sesión", error: error.message });
+    console.error("Error al cerrar sesión:", error);
+    return res.status(500).json({ message: "Error interno del servidor" });
   }
 }
 
@@ -93,11 +90,12 @@ export async function getProfile(req, res) {
       return res.status(404).json({ message: "Usuario no encontrado" });
     }
 
-    return res.status(200).json(user);
-  } catch (error) {
     return res
-      .status(500)
-      .json({ message: "Error al obtener perfil", error: error.message });
+      .status(200)
+      .json({ message: "Perfil obtenido correctamente", data: user });
+  } catch (error) {
+    console.error("Error al obtener perfil:", error);
+    return res.status(500).json({ message: "Error interno del servidor" });
   }
 }
 
@@ -109,7 +107,7 @@ export async function updateProfile(req, res) {
     }
 
     const { first_name, last_name, biography, avatar_url, birth_date } =
-      req.body;
+      req.body || {};
 
     const profile = await profileModels.findOne({
       where: { user_id: req.user.id },
@@ -128,10 +126,9 @@ export async function updateProfile(req, res) {
 
     return res
       .status(200)
-      .json({ message: "Perfil actualizado correctamente", profile });
+      .json({ message: "Perfil actualizado correctamente", data: profile });
   } catch (error) {
-    return res
-      .status(500)
-      .json({ message: "Error al actualizar perfil", error: error.message });
+    console.error("Error al actualizar perfil:", error);
+    return res.status(500).json({ message: "Error interno del servidor" });
   }
 }

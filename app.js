@@ -1,41 +1,37 @@
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import "dotenv/config";
 import sequelize from "./src/config/database.js";
-import "./src/models/asociacion.js";
+import "./src/models/index.js";
 import authRoutes from "./src/routes/auth.routes.js";
-import userRoutes from "./src/routes/users.routes.js";
-import tagRoutes from "./src/routes/tags.routes.js";
+import userRoutes from "./src/routes/user.routes.js";
+import tagRoutes from "./src/routes/tag.routes.js";
 import articleRoutes from "./src/routes/article.routes.js";
-import articleTagRoutes from "./src/routes/articletags.routes.js";
+import articleTagRoutes from "./src/routes/articleTag.routes.js";
 
 const app = express();
+const PORT = process.env.PORT || 3000;
 
-app.use(
-  cors({
-    origin: "http://localhost:5173",
-    credentials: true,
-  }),
-);
-app.use(cookieParser());
+app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
+
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/tags", tagRoutes);
 app.use("/api/articles", articleRoutes);
 app.use("/api/articles-tags", articleTagRoutes);
 
-const PORT = process.env.PORT;
-
-try {
-  await sequelize.authenticate();
-  console.log("Conexión a la base de datos exitosa.");
-  await sequelize.sync({ alter: true });
-
-  app.listen(PORT, () => {
-    console.log(`Servidor corriendo en el puerto ${PORT}`);
-  });
-} catch (error) {
-  console.error("Error al conectar a la base de datos:", error);
+async function startServer() {
+  try {
+    await sequelize.authenticate();
+    await sequelize.sync();
+    app.listen(PORT, () => {
+      console.log(`Servidor corriendo en http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error("No se pudo iniciar el servidor:", error);
+  }
 }
+
+startServer();

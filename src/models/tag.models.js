@@ -1,17 +1,15 @@
+import { DataTypes } from "sequelize";
 import sequelize from "../config/database.js";
-import {DataTypes} from "sequelize";
 
-export const tagModels = sequelize.define(
-    "Tag",
-    {
-        name:{
-            type: DataTypes.STRING(30),
-            unique: true,
-            allowNull: false,
-        }
-    },
-    {
-        timestamps: true,
-        underscored: true,
-    }
-);
+export const tagModels = sequelize.define("Tag", {
+  id: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    autoIncrement: true,
+  },
+  name: {
+    type: DataTypes.STRING(30),
+    allowNull: false,
+    unique: true,
+  },
+});

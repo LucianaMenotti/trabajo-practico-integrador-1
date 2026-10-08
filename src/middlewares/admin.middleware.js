@@ -4,5 +4,6 @@ export function adminMiddleware(req, res, next) {
       .status(403)
       .json({ message: "Acceso denegado: se requiere rol admin" });
   }
+
   next();
 }

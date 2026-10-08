@@ -4,17 +4,20 @@ import sequelize from "../config/database.js";
 export const userModels = sequelize.define(
   "User",
   {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     username: {
       type: DataTypes.STRING(20),
-      unique: true,
       allowNull: false,
-      validate: { len: [3, 20] },
+      unique: true,
     },
     email: {
       type: DataTypes.STRING(100),
-      unique: true,
       allowNull: false,
-      validate: { isEmail: true },
+      unique: true,
     },
     password: {
       type: DataTypes.STRING(255),
@@ -22,12 +25,11 @@ export const userModels = sequelize.define(
     },
     role: {
       type: DataTypes.ENUM("user", "admin"),
+      allowNull: false,
       defaultValue: "user",
     },
   },
   {
-    timestamps: true,
-    underscored: true,
     paranoid: true,
   },
 );
